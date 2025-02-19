@@ -1,0 +1,11 @@
+LINK: https://www.youtube.com/watch?v=wm5gMKuwSYk
+
+npm create-next-app @latest ./
+
+npm install bcrypt mongodb mongoose next-auth
+
+START @ 1:03:30 - mobile navigation
+
+https://next-auth.js.org/getting-started/rest-api
+
+rafce -> shortcut to create a react functional component
