@@ -1,16 +1,16 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-
 import Form from "@components/Form";
 
-const UpdatePrompt = () => {
+// Separate component to handle search params and form logic
+const PromptForm = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const promptId = searchParams.get("id");
 
-  const [post, setPost] = useState({ prompt: "", tag: "", });
+  const [post, setPost] = useState({ prompt: "", tag: "" });
   const [submitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -60,6 +60,15 @@ const UpdatePrompt = () => {
       submitting={submitting}
       handleSubmit={updatePrompt}
     />
+  );
+};
+
+// Main component with Suspense
+const UpdatePrompt = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <PromptForm />
+    </Suspense>
   );
 };
 

@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    serverExternalPackages: ["mongoose"],
-  },
+  // ✅ No need to keep this under 'experimental' for Next.js 15
+  serverExternalPackages: ["mongoose"],
+
   images: {
     remotePatterns: [
       {
@@ -11,6 +11,7 @@ const nextConfig = {
       },
     ],
   },
+
   webpack(config) {
     config.experiments = {
       ...config.experiments,
