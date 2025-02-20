@@ -1,6 +1,6 @@
 "use client";
 
-import {useState, useEffect} from 'react';
+import {useState, useEffect, Suspense} from 'react';
 import { useSession } from 'next-auth/react';
 import {useRouter, useSearchParams} from 'next/navigation';
 
@@ -25,7 +25,7 @@ const MyProfile = () => {
             console.log(session.user)
           if (!session?.user?.id) {console.log("UNKNOWN ID"); return;} // ✅ Avoid fetching with undefined ID
         //   console.log("HELLO")
-            
+
           if (!profileId) {
             const response = await fetch(`/api/users/${session.user.id}/posts`);
             const data = await response.json();
@@ -74,13 +74,16 @@ const MyProfile = () => {
 
 
   return (
-    <Profile 
-        name= {isUserProfile? "My" : `${(userName)}'s`}
-        desc="Welcome to your personlized profile page"
-        data={posts}
-        handleEdit = {isUserProfile && handleEdit}
-        handleDelete = {isUserProfile && handleDelete}
-    />
+    <Suspense fallback={<div>Loading...</div>}>
+        <Profile 
+            name= {isUserProfile? "My" : `${(userName)}'s`}
+            desc="Welcome to your personlized profile page"
+            data={posts}
+            handleEdit = {isUserProfile && handleEdit}
+            handleDelete = {isUserProfile && handleDelete}
+        />
+    </Suspense>
+
   )
 }
 
